@@ -1,0 +1,7 @@
+## Interface: 30300
+## Title: Auto Free For All
+## Notes: Automatically switches loot to Free For All when grouping
+## Author: feys
+## Version: 1.0
+
+AutoFreeForAll.lua
