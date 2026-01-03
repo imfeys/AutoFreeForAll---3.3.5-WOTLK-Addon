@@ -7,16 +7,16 @@ frame:SetScript("OnEvent", function()
     local inParty = GetNumPartyMembers() > 0
     local inRaid  = GetNumRaidMembers() > 0
 
-    if inParty or inRaid then
-        local isLeader = IsPartyLeader() or IsRaidLeader()
+    if not inParty and not inRaid then return end
+    if not (IsPartyLeader() or IsRaidLeader()) then return end
 
-        if isLeader then
-            local lootMethod = GetLootMethod()
+    local lootMethod = GetLootMethod()
+    if lootMethod ~= "freeforall" then
+        SetLootMethod("freeforall")
 
-            if lootMethod ~= "freeforall" then
-                SetLootMethod("freeforall")
-                DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00AutoFFA: Loot set to Free For All.|r")
-            end
+        -- Suppress chat message in LFD
+        if not IsPartyLFG() then
+            DEFAULT_CHAT_FRAME:AddMessage("|cff00ff00AutoFFA: Loot set to Free For All.|r")
         end
     end
 end)
